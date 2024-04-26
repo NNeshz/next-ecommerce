@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# E-commerce Project
 
-## Getting Started
+Este proyecto es un sistema de comercio electrónico que permite a los usuarios comprar y vender productos en línea. Proporciona una plataforma segura y fácil de usar para realizar transacciones comerciales.
 
-First, run the development server:
+## Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Registro de usuarios: Los usuarios pueden crear una cuenta para acceder al sistema.
+- Catálogo de productos: Los usuarios pueden explorar y buscar productos disponibles para comprar.
+- Carrito de compras: Los usuarios pueden agregar productos al carrito de compras y realizar el pago.
+- Panel de administración: Los administradores pueden gestionar productos, usuarios y pedidos.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologías utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Lenguaje de programación: [Typescript](https://www.typescriptlang.org/)
+- Framework de desarrollo web: [Next.js](https://nextjs.org/)
+- Estilos: [TailwindCSS](https://tailwindcss.com/)
+- Control de versiones: [Git](https://git-scm.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Instalación
 
-## Learn More
+1. Clona este repositorio en tu máquina local.
+2. Instala las dependencias del proyecto con el comando `npm install`.
+3. Inicia el servidor de desarrollo con el comando `npm run dev`.
 
-To learn more about Next.js, take a look at the following resources:
+## Contribución
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Haz un fork de este repositorio.
+2. Crea una rama con el nombre de tu función o mejora.
+3. Realiza los cambios y realiza un commit.
+4. Envía un pull request a la rama principal.
 
-## Deploy on Vercel
+## Licencia
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para obtener más información.

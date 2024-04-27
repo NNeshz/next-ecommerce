@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { Categories as allCategories } from "@/app/libs/data";
-import CarecoryCard from "./CarecoryCard";
+import CarecoryCard from "./CatecoryCard";
 
 interface ICategory {
   id: number;

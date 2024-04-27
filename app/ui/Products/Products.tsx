@@ -25,8 +25,8 @@ export default async function Products() {
     const products = await getProuducts()
 
     return (
-        <div className="flex w-full flex-col">
-            <h1 className="text-5xl font-bold mb-8">Products</h1>
+        <div className="flex w-full flex-col mt-20">
+            <h1 className="text-4xl font-bold mb-8">Products of the week</h1>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
                 {
                     products.map((product: IProduct) => {

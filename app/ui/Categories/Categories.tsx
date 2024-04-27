@@ -16,7 +16,7 @@ export default function Categories() {
   return (
     <div>
       <h1 className="text-4xl font-bold mb-4">Categories</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5 justify-center">
         {allCategories.map((cat: ICategory) => (
           <CarecoryCard image={cat.image} title={cat.name} key={cat.id} />
         ))}

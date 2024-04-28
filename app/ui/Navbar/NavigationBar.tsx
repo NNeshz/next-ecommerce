@@ -31,7 +31,7 @@ export default function NavigationBar() {
         </div>
         <ul className={`nav-links ${showNavLinks ? "show" : ""}`}>
           <li>
-            <a href="/">Products</a>
+            <a href="/products">Products</a>
           </li>
           <li>
             <a href="/">

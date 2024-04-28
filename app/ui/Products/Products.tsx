@@ -1,55 +1,43 @@
-import Card from "../Card/Card"
+"use client";
 
-interface IProduct {
-    id: string;
-    title: string;
-    price: number;
-    category: {
-        name: string;
-    };
-    images: string[];
-}
+import Card from "../Card/Card";
+import { IProduct } from "@/utils/types";
+import { useProductsStore } from "@/store/useProducts";
+import { useEffect } from "react";
 
-async function getProuducts() {
-    const res = await fetch("https://api.escuelajs.co/api/v1/products?offset=0&limit=10")
+export default function Products() {
+  const products = useProductsStore((state) => state.products);
+  const getAllProducts = useProductsStore((state) => state.getAllProducts);
 
-    if (!res.ok) {
-        throw new Error("Error fetching products")
-    }
+  useEffect(() => {
+    getAllProducts();
+  }, [getAllProducts]);
 
-    return res.json()
-}
+  let recentProducts = products.toSorted(() => Math.random() - 0.5).slice(0, 5);
 
-export default async function Products() {
+  return (
+    <div className="flex w-full flex-col mt-20 px-10 md:px-20">
+      <h1 className="text-4xl font-bold mb-8">Products of the week</h1>
+      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
+        {recentProducts.map((product: IProduct) => {
+          let newImagesArray: string[] = [];
 
-    const products = await getProuducts()
+          product.images.forEach((imageURL: string) => {
+            let newImageURL = imageURL.replace(/[\[\]"]/g, ""); // Eliminar corchetes y comillas
+            newImagesArray.push(newImageURL);
+          });
 
-    return (
-        <div className="flex w-full flex-col mt-20">
-            <h1 className="text-4xl font-bold mb-8">Products of the week</h1>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-                {
-                    products.map((product: IProduct) => {
-
-                        let newImagesArray: string[] = [];
-
-                        product.images.forEach((imageURL: string) => {
-                            let newImageURL = imageURL.replace(/[\[\]"]/g, ''); // Eliminar corchetes y comillas
-                            newImagesArray.push(newImageURL);
-                        });
-
-                        return (
-                            <Card
-                                key={product.id}
-                                title={product.title}
-                                price={product.price}
-                                category={product.category.name}
-                                image={newImagesArray}
-                            />
-                        )
-                    })
-                }
-            </div>
-        </div>
-    )
+          return (
+            <Card
+              key={product.id}
+              title={product.title}
+              price={product.price}
+              category={product.category.name}
+              image={newImagesArray}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 }

@@ -1,23 +1,26 @@
 "use client";
 
-import { Categories as allCategories } from "@/app/libs/data";
-import CarecoryCard from "./CatecoryCard";
+import CategoryCard from "./CatecoryCard";
+import { ICategory } from "@/utils/types";
+import { useCategoriesStore } from "@/store/useCategories";
+import { useEffect } from "react";
 
-interface ICategory {
-  id: number;
-  name: string;
-  image: string;
-}
-
-// Exporta el componente como una función de React
 export default function Categories() {
+  const categories = useCategoriesStore((state) => state.categories);
+  const getAllCategories = useCategoriesStore(
+    (state) => state.getAllCategories
+  );
+
+  useEffect(() => {
+    getAllCategories();
+  }, [getAllCategories]);
 
   return (
-    <div>
+    <div className="flex w-full flex-col mt-20 px-10 md:px-20">
       <h1 className="text-4xl font-bold mb-4">Categories</h1>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5 justify-center">
-        {allCategories.map((cat: ICategory) => (
-          <CarecoryCard image={cat.image} title={cat.name} key={cat.id} />
+      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5 justify-center">
+        {categories.map((cat: ICategory) => (
+          <CategoryCard image={cat.image} title={cat.name} key={cat.id} />
         ))}
       </div>
     </div>

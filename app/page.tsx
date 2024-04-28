@@ -4,7 +4,7 @@ import Welcome from "./ui/Home/Welcome";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-10 md:p-16">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <Welcome />
       <Categories />
       <Products />

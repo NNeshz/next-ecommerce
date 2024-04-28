@@ -9,11 +9,11 @@ interface ICard {
 
 export default function Card({ title, price, category, image }: ICard) {
   return (
-    <div className="px-2 py-2 rounded-md flex flex-col items-baseline h-full">
+    <div className="rounded-md flex flex-col items-baseline h-full">
       <Image
         src={image[0]}
         alt={`Image for ${title}`}
-        width={290}
+        width={342}
         height={100}
         className="rounded-md"
       />

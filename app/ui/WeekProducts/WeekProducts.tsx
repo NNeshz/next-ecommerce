@@ -2,18 +2,13 @@
 
 import Card from "../Card/Card";
 import { IProduct } from "@/utils/types";
-import { useProductsStore } from "@/store/useProducts";
-import { useEffect } from "react";
+import { useGetProducts } from "@/hooks/useGetProducts";
 
-export default function Products() {
-  const products = useProductsStore((state) => state.products);
-  const getAllProducts = useProductsStore((state) => state.getAllProducts);
+export default function WeekProducts() {
+  
+  const products = useGetProducts();
 
-  useEffect(() => {
-    getAllProducts();
-  }, [getAllProducts]);
-
-  let recentProducts = products.toSorted(() => Math.random() - 0.5).slice(0, 5);
+  const recentProducts = products.toSorted(() => Math.random() - 0.5).slice(0, 5)
 
   return (
     <div className="flex w-full flex-col mt-20 px-10 md:px-20">

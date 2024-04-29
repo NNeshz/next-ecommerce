@@ -2,18 +2,11 @@
 
 import CategoryCard from "./CatecoryCard";
 import { ICategory } from "@/utils/types";
-import { useCategoriesStore } from "@/store/useCategories";
-import { useEffect } from "react";
+import { useGetCategories } from "@/hooks/useGetCategories";
 
 export default function Categories() {
-  const categories = useCategoriesStore((state) => state.categories);
-  const getAllCategories = useCategoriesStore(
-    (state) => state.getAllCategories
-  );
-
-  useEffect(() => {
-    getAllCategories();
-  }, [getAllCategories]);
+  
+  const categories = useGetCategories();
 
   return (
     <div className="flex w-full flex-col mt-20 px-10 md:px-20">

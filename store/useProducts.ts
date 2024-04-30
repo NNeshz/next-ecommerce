@@ -1,58 +1,92 @@
 import { create } from "zustand";
-import { IProduct } from "@/utils/types";
-
-import { Products } from "@/app/libs/data";
+import { ICategory, IProduct } from "@/utils/types";
+import { Products, Categories } from "@/app/libs/data";
 
 interface ProductsStore {
   products: IProduct[];
-}
-
-interface IFilters {
-  category: string;
-  price: number;
+  filteredProducts: IProduct[];
+  category: ICategory[];
+  categoryFilter: string;
+  priceFilter: number;
 }
 
 interface ProductsStoreActions {
   getAllProducts: () => void;
   filterProductByName: (name: string) => void;
-  filterProductByCategory: (category: string, price: number) => void;
-  filterProducts: (filterCriteria: IFilters) => void,
+  filterProduct: () => void;
+  changeCategoryFilter: (category: string) => void;
+  changePriceFilter: (price: number) => void;
+  resetProducts: () => void;
 }
 
 export const useProductsStore = create<ProductsStore & ProductsStoreActions>(
-  (set, get) => ({
-    products: [],
+  (set) => ({
+    products: [...Products],
+    category: [...Categories],
+    categoryFilter: "",
+    priceFilter: 0,
+    filteredProducts: [],
     getAllProducts: () => {
       const allProducts = Products;
       set({ products: allProducts });
     },
     filterProductByName: (name: string) => {
-      const products = Products;
-      const filteredProduct = products.filter((product) =>
-        product.title.toLowerCase().includes(name.toLowerCase())
-      );
-      set({ products: filteredProduct });
+      set((state) => {
+        return {
+          filteredProducts: [
+            ...state.products.filter((product) =>
+              product.title.toLowerCase().includes(name.toLowerCase())
+            ),
+          ],
+        };
+      });
     },
-    filterProductByCategory: (categoryName: string, price: number) => {
-      if (categoryName && price > 0) {
-        const filteredProducts = get().products.filter((product) => {
-          return (
-            product.category.name === categoryName && product.price >= price
-          );
-        });
-        set({ products: filteredProducts });
-      } else if (categoryName && !price) {
-        const filteredProducts = get().products.filter((product) => {
-          return product.category.name === categoryName;
-        });
-        set({ products: filteredProducts });
-      } else if (!categoryName && price > 0) {
-        const filteredProducts = get().products.filter((product) => {
-          return product.price >= price;
-        });
-        set({ products: filteredProducts });
-      }
+    filterProduct: () => {
+      set((state) => {
+        if (state.categoryFilter !== "" && state.priceFilter === 0) {
+          return {
+            filteredProducts: [
+              ...state.products.filter(
+                (product) => product.category.name === state.categoryFilter
+              ),
+            ],
+          };
+        } else if (state.categoryFilter === "" && state.priceFilter > 0) {
+          return {
+            filteredProducts: [
+              ...state.products.filter(
+                (product) => product.price >= state.priceFilter
+              ),
+            ],
+          };
+        } else if (state.categoryFilter !== "" && state.priceFilter > 0) {
+          return {
+            filteredProducts: [
+              ...state.products.filter((product) => {
+                return (
+                  product.category.name === state.categoryFilter &&
+                  product.price >= state.priceFilter
+                );
+              }),
+            ],
+          };
+        } else {
+          return { filteredProducts: [...state.products] };
+        }
+      });
     },
-    filterProducts: (filterCriteria: IFilters) => {}
+    changeCategoryFilter: (category: string) => {
+      set({ categoryFilter: category });
+    },
+    changePriceFilter: (price: number) => {
+      set({ priceFilter: price });
+    },
+    resetProducts: () => {
+      set({
+        filteredProducts: [...Products],
+        categoryFilter: "",
+        priceFilter: 0,
+      });
+    },
   })
 );

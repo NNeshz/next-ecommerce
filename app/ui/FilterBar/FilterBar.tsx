@@ -2,33 +2,32 @@
 
 import { useGetCategories } from "@/hooks/useGetCategories";
 import { useProductsStore } from "@/store/useProducts";
-import { useState } from "react";
 
 export default function FilterBar() {
   const categories = useGetCategories();
-  const getFilterChange = useProductsStore(
-    (state) => state.filterProductByCategory
-  );
-  const getAllProducts = useProductsStore((state) => state.getAllProducts);
-
-  const [category, setCategory] = useState<string>("");
-  const [price, setPrice] = useState<number>(0);
+  const filterProduct = useProductsStore((state) => state.filterProduct);
+  const changeCategoryFilter = useProductsStore((state) => state.changeCategoryFilter);
+  const changePriceFilter = useProductsStore((state) => state.changePriceFilter);
+  const categoryFilter = useProductsStore((state) => state.categoryFilter);
+  const priceFilter = useProductsStore((state) => state.priceFilter);
+  const resetFilters = useProductsStore((state) => state.resetProducts);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
+    changeCategoryFilter(e.target.value);
   };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPrice(Number(e.target.value));
+    changePriceFilter(parseInt(e.target.value));
   };
 
-  const handleFilterChange = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    getFilterChange(category, price);
+    console.log(categoryFilter, priceFilter)
+    filterProduct();
   };
 
   return (
-    <form className="flex flex-col w-60 pr-4" onSubmit={handleFilterChange}>
+    <form className="flex flex-col w-60 pr-4" onSubmit={handleSearch}>
       <label htmlFor="" className="text-lg font-semibold">
         Category
       </label>
@@ -37,8 +36,9 @@ export default function FilterBar() {
         id="category"
         className="bg-black text-white mt-4"
         onChange={handleCategoryChange}
+        value={categoryFilter}
       >
-        <option value="all" className="text-gray-500">
+        <option value="All" className="text-gray-500">
           All
         </option>
         {categories.map((category) => (
@@ -60,6 +60,7 @@ export default function FilterBar() {
         id="price"
         className="bg-black text-white mt-4"
         onChange={handlePriceChange}
+        value={priceFilter}
       >
         <option value={0} className="text-gray-500">
           All
@@ -88,7 +89,7 @@ export default function FilterBar() {
       </button>
       <button
         className="bg-red-500 text-black py-2 mt-4 font-semibold rounded-md"
-        onClick={getAllProducts}
+        onClick={resetFilters}
       >
         Reset
       </button>
